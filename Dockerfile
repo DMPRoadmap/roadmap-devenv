@@ -21,9 +21,7 @@ RUN useradd --create-home -s /bin/bash vagrant
 WORKDIR /home/vagrant
 
 # Configure SSH access
-
 RUN mkdir -p /home/vagrant/.ssh && \
-#    ssh-keygen -A && \
     wget https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub -O /home/vagrant/.ssh/authorized_keys && \
     chmod 0700 /home/vagrant/.ssh && \
     chmod 0600 /home/vagrant/.ssh/authorized_keys && \
@@ -36,30 +34,24 @@ RUN mkdir -p /home/vagrant/.ssh && \
     sed -i -e 's/\(UsePAM \)yes/\1 no/' /etc/ssh/sshd_config && \
     systemctl enable sshd.service && \
 
-    #gpasswd -a vagrant wheel && \
+    gpasswd -a vagrant wheel && \
     #usermod -a -G sudo vagrant && \
     #`# Enable passwordless sudo for users under the "sudo" group` && \
     #sed -i.bkp -e 's/%sudo\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%sudo ALL=NOPASSWD:ALL/g' /etc/sudoers && \
 
     echo -n 'vagrant:vagrant' | chpasswd 
-    
-#`# Thanks to http://docs.docker.io/en/latest/examples/running_ssh_service/` && \
-    #mkdir /var/run/sshd
 
-
-
-# Puppet
-RUN wget http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm -O /tmp/puppetlabs-release-stable.rpm && \
-    rpm -i /tmp/puppetlabs-release-stable.rpm && \
-#    yum -y install puppet-agent hostname && \
+# Install Puppet
+RUN wget http://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm -O /tmp/puppetlabs-release-pc1.rpm && \
+    rpm -i /tmp/puppetlabs-release-pc1.rpm && \
     rm -f /tmp/*.rpm && \
     yum clean all && \
-    yum -y install puppet puppet-common hiera facter virt-what lsb-release 
+    yum -y install puppet-agent
 
 VOLUME [ "/sys/fs/cgroup" ]
 
 # Expose port 22 for ssh
 EXPOSE 22
 
-#leave the SHH daemon (and container) running
+#leave the ssh daemon (and container) running
 CMD ["/usr/sbin/init"]
