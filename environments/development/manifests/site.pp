@@ -13,3 +13,9 @@ node 'dmponline-dev' {
 #  include dcc::firewall
 
 }
+
+node 'dmponline-db' {
+  include dcc::standard
+  include dcc::database
+  include dcc::updatedb
+}

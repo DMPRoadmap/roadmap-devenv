@@ -13,8 +13,10 @@ class dcc::standard {
   package { [
              'bash-completion',
              'bzip2',
+             'man',
              'mlocate',
              'nano',
+             'net-tools',
              'unzip',
              'which',
             ] :

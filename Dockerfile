@@ -39,7 +39,7 @@ RUN mkdir -p /home/vagrant/.ssh && \
     #`# Enable passwordless sudo for users under the "sudo" group` && \
     #sed -i.bkp -e 's/%sudo\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%sudo ALL=NOPASSWD:ALL/g' /etc/sudoers && \
 
-    echo -n 'vagrant:vagrant' | chpasswd 
+    echo -n 'vagrant:vagrant' | chpasswd
 
 # Install Puppet
 RUN wget http://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm -O /tmp/puppetlabs-release-pc1.rpm && \
@@ -52,6 +52,7 @@ VOLUME [ "/sys/fs/cgroup" ]
 
 # Expose port 22 for ssh
 EXPOSE 22
+EXPOSE 80
 
 #leave the ssh daemon (and container) running
 CMD ["/usr/sbin/init"]

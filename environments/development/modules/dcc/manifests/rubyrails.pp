@@ -1,8 +1,6 @@
 # Installs Python and dependencies
 class dcc::rubyrails {
 
-  require dcc::gitclone
-
   class { 'rvm' :
   }
 
@@ -18,8 +16,8 @@ class dcc::rubyrails {
     require => Rvm_system_ruby['ruby-2.2.5'],
   }
 
-  rvm_gem { 'ruby-2.2.5@dmponline/rails' :
-    ensure  => '4.2.7',
+  rvm_gem { 'ruby-2.2.5@dmponline/bundler' :
+    ensure  => '1.12.5',
     require => Rvm_gemset['ruby-2.2.5@dmponline'],
   }
 
