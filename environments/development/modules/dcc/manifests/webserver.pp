@@ -5,10 +5,38 @@ class dcc::webserver {
   require dcc::gitclone
   require dcc::rubyrails
 
-  include nginx
+  yumrepo { 'passenger' :
+    descr         => 'Passenger',
+    baseurl       => 'https://oss-binaries.phusionpassenger.com/yum/passenger/el/$releasever/$basearch',
+    repo_gpgcheck => 1,
+    gpgcheck      => 0,
+    enabled       => 1,
+    gpgkey        => 'https://packagecloud.io/gpg.key',
+    sslverify     => 1,
+    sslcacert     => '/etc/pki/tls/certs/ca-bundle.crt',
+  }
 
-  nginx::resource::vhost { 'dmponline-dev':
-    www_root => '/opt/src/dmponline',
+  package { 'passenger' :
+    ensure  => 'installed',
+    require => Yumrepo['passenger'],
+  }
+
+  class { 'nginx' :
+    http_cfg_append => {
+                         passenger_root                  => '/usr/share/ruby/vendor_ruby/phusion_passenger/locations.ini',
+                         passenger_instance_registry_dir => '/var/run/passenger-instreg',
+                       },
+    require         => Package['passenger'],
+  }
+
+  nginx::resource::vhost { 'dmponline-dev' :
+    www_root         => '/opt/src/dmponline/public',
+    vhost_cfg_append => {
+                          passenger_enabled => 'on',
+                          rails_env         => 'development',
+                          passenger_ruby    => '/usr/local/rvm/gems/ruby-2.2.5@dmponline/wrappers/ruby',
+                        },
+    require          => Package['passenger'],
   }
 
 }

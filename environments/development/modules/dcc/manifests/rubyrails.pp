@@ -26,4 +26,8 @@ class dcc::rubyrails {
     require => Rvm_gemset['ruby-2.2.5@dmponline'],
   }
 
+  package { 'mariadb-devel' :
+    ensure => 'installed',
+  }
+
 }

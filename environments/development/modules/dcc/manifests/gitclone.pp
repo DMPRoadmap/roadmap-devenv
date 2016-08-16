@@ -23,7 +23,7 @@ class dcc::gitclone {
     require  => [Package['git'],
                  File['/opt/src'], ],
     source   => 'https://github.com/DigitalCurationCentre/roadmap.git',
-    revision => 'master',
+    revision => 'development',
   }
 
 }
