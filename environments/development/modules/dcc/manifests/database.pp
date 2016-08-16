@@ -14,7 +14,7 @@ class dcc::database {
   mysql::db { 'dmponline' :
     user     => 'dmponline',
     password => 'dmponline',
-    host     => '172.17.0.1',
+    host     => '%',
     grant    => [ 'ALL', ],
   }
 

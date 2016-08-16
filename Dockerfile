@@ -3,6 +3,8 @@
 FROM centos:7
 
 # Optional, upgrade to latest (takes a while), but before install sshd
+RUN yum -y install deltarpm
+
 RUN yum -y update
 
 RUN yum -y install systemd systemd-libs initscripts sudo wget curl openssh-server openssh-clients

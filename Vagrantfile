@@ -5,6 +5,7 @@
 ENV['VAGRANT_DEFAULT_PROVIDER'] ||= 'docker'
 #ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 
+
 Vagrant.configure(2) do |config|
 
   config.vm.define 'dev' do |dev|
@@ -17,7 +18,9 @@ Vagrant.configure(2) do |config|
         #build from the Dockerfile
         d.build_dir = '.'
         d.name = 'vagrant-dev'
-        d.create_args = [ "--privileged", "-v", "/sys/fs/cgroup:/sys/fs/cgroup:ro" ]
+        d.create_args = [ "--privileged", "-v",
+                          "/sys/fs/cgroup:/sys/fs/cgroup:ro",
+                          "--net=dmpbridge", "--ip=172.18.0.1", ]
       end
 
       #the docker image must remain running for SSH (See the Dockerfile)
@@ -28,6 +31,7 @@ Vagrant.configure(2) do |config|
     dev.vm.host_name = 'dmponline-dev'
     dev.vm.synced_folder 'dmponline.git', '/opt/src/dmponline.git'
     dev.vm.network :forwarded_port, host: 8080, guest: 80 #web
+    dev.ssh.host = "172.18.0.1"
     dev.vm.provision :shell do |shell|
       shell.inline = "
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/vcsrepo;
@@ -59,7 +63,9 @@ Vagrant.configure(2) do |config|
         #build from the Dockerfile
         d.build_dir = '.'
         d.name = 'vagrant-db'
-        d.create_args = [ "--privileged", "-v", "/sys/fs/cgroup:/sys/fs/cgroup:ro" ]
+        d.create_args = [ "--privileged", "-v",
+                          "/sys/fs/cgroup:/sys/fs/cgroup:ro",
+                          "--net=dmpbridge", "--ip=172.18.0.2", ]
         d.ports = [ "3306:3306" ]
       end
       #the docker image must remain running for SSH (See the Dockerfile)
@@ -67,6 +73,7 @@ Vagrant.configure(2) do |config|
       d.has_ssh = true
     end
     db.vm.host_name = 'dmponline-db'
+    db.ssh.host = "172.18.0.2"
     db.vm.provision :shell do |shell|
       shell.inline = "
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/vcsrepo;
