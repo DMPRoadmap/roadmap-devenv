@@ -2,9 +2,7 @@
 
 FROM centos:7
 
-# Optional, upgrade to latest (takes a while), but before install sshd
 RUN yum -y install deltarpm
-
 RUN yum -y install systemd systemd-libs initscripts sudo wget curl openssh-server openssh-clients
 
 RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
@@ -35,10 +33,6 @@ RUN mkdir -p /home/vagrant/.ssh && \
     systemctl enable sshd.service && \
 
     gpasswd -a vagrant wheel && \
-    #usermod -a -G sudo vagrant && \
-    #`# Enable passwordless sudo for users under the "sudo" group` && \
-    #sed -i.bkp -e 's/%sudo\s\+ALL=(ALL\(:ALL\)\?)\s\+ALL/%sudo ALL=NOPASSWD:ALL/g' /etc/sudoers && \
-
     echo -n 'vagrant:vagrant' | chpasswd
 
 # Install Puppet
