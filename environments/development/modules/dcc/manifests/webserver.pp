@@ -21,22 +21,29 @@ class dcc::webserver {
     require => Yumrepo['passenger'],
   }
 
-  class { 'nginx' :
+  class { 'nginx::config' :
     http_cfg_append => {
                          passenger_root                  => '/usr/share/ruby/vendor_ruby/phusion_passenger/locations.ini',
                          passenger_instance_registry_dir => '/var/run/passenger-instreg',
                        },
-    require         => Package['passenger'],
   }
 
+  class { 'nginx' :
+    require          => Package['passenger'],
+  }
+
+  #include nginx::config
+
   nginx::resource::vhost { 'dmponline-dev' :
-    www_root         => '/opt/src/dmponline/public',
+    www_root         => '/opt/src/dmponline.git/public',
     vhost_cfg_append => {
                           passenger_enabled => 'on',
                           rails_env         => 'development',
-                          passenger_ruby    => '/usr/local/rvm/gems/ruby-2.2.5@dmponline/wrappers/ruby',
+                          passenger_ruby    => '/usr/local/rvm/gems/ruby-2.2.3@dmponline/wrappers/ruby',
                         },
     require          => Package['passenger'],
   }
+
+
 
 }

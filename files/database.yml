@@ -1,0 +1,23 @@
+development:
+    adapter: mysql2
+    encoding: utf8
+    host: 172.18.0.2
+    database: dmponline
+    username: dmponline
+    password: dmponline
+
+test:
+    adapter: mysql2
+    encoding: utf8
+    host: 172.18.0.2
+    database: dmponline-test
+    username: dmponline
+    password: dmponline
+
+production:
+    adapter: mysql2
+    encoding: utf8
+    host: 172.18.0.2
+    database: dmponline-prod
+    username: dmponline
+    password: dmponline
