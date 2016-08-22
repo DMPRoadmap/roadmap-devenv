@@ -13,6 +13,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.define 'db' do |db|
     db.vm.provider 'docker' do |d|
+      d.force_host_vm = false
 
       #build from the Dockerfile
       d.build_dir = '.'
@@ -20,14 +21,16 @@ Vagrant.configure(2) do |config|
       d.create_args = [ "--privileged", "-v",
                         "/sys/fs/cgroup:/sys/fs/cgroup:ro",
                         "--net=dmpbridge", "--ip=172.18.0.2", ]
-      d.ports = [ "3306:3306" ]
+      d.ports = [ "3306:3306","4022:22" ]
 
       #the docker image must remain running for SSH (See the Dockerfile)
       d.remains_running = true
       d.has_ssh = true
     end
     db.vm.host_name = 'dmponline-db'
-    db.ssh.host = "172.18.0.2"
+    db.ssh.port = "4022"
+    db.ssh.host = "127.0.0.1"
+    db.vm.network :forwarded_port, host:3306 , guest:3306
     db.vm.provision :shell do |shell|
       shell.inline = "
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/vcsrepo;
@@ -51,6 +54,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.define 'dev' do |dev|
     dev.vm.provider 'docker' do |d|
+      d.force_host_vm = false
 
       #build from the Dockerfile
       d.build_dir = '.'
@@ -62,12 +66,13 @@ Vagrant.configure(2) do |config|
       #the docker image must remain running for SSH (See the Dockerfile)
       d.remains_running = true
       d.has_ssh = true
-      d.ports = [ "8080:80" ]
+      d.ports = [ "8080:80","5020:22" ]
     end
     dev.vm.host_name = 'dmponline-dev'
     dev.vm.synced_folder 'src', '/opt/src'
     dev.vm.network :forwarded_port, host: 8080, guest: 80 #web
-    dev.ssh.host = "172.18.0.1"
+    dev.ssh.host = "127.0.0.1"
+    dev.ssh.port = "5020"
     dev.vm.provision :shell do |shell|
       shell.inline = "
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/vcsrepo;

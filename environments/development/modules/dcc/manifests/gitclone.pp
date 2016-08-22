@@ -8,8 +8,6 @@ class dcc::gitclone {
   # Define our main repository and bring in the revision we need from it
   vcsrepo { '/opt/src/dmponline.git':
     ensure   => latest,
-    owner    => vagrant,
-    group    => source,
     provider => git,
     user     => vagrant,
     require  => Package['git'],
