@@ -28,7 +28,10 @@ class dcc::rubyrails {
     require => Rvm_gemset['ruby-2.2.3@dmponline'],
   }
 
-  package { 'mariadb-devel' :
+  package { [
+             'mariadb-devel', 
+             'ImageMagick', 
+            ] :
     ensure => 'installed',
   }
 
