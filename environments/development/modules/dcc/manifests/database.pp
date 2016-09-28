@@ -6,6 +6,7 @@ class dcc::database {
     override_options => {
       mysqld => {
                   bind-address => '0.0.0.0',
+                  character-set-server => 'utf8',
                 }
     },
   }
