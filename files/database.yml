@@ -1,23 +1,26 @@
 development:
-    adapter: mysql2
+    adapter: postgresql
     encoding: utf8
     host: 172.18.0.2
+    port: 5435
     database: dmponline
     username: dmponline
     password: dmponline
 
 test:
-    adapter: mysql2
+    adapter: postgresql
     encoding: utf8
     host: 172.18.0.2
+    port: 5435
     database: dmponline-test
     username: dmponline
     password: dmponline
 
 production:
-    adapter: mysql2
+    adapter: postgresql
     encoding: utf8
     host: 172.18.0.2
+    port: 5435
     database: dmponline-prod
     username: dmponline
     password: dmponline

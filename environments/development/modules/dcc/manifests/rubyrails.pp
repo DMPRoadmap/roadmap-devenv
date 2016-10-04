@@ -29,8 +29,8 @@ class dcc::rubyrails {
   }
 
   package { [
-             'mariadb-devel', 
-             'ImageMagick', 
+             'postgresql-devel',
+             'ImageMagick-devel',
             ] :
     ensure => 'installed',
   }
@@ -68,7 +68,7 @@ class dcc::rubyrails {
     cwd         => '/opt/src/dmponline.git',
     require     => [ Exec['rake secret', 'bundle install', ],
                      File['/opt/src/dmponline.git/config/database.yml'],
-                     Package['mariadb-devel'], ],
+                     Package['postgresql-devel', 'ImageMagick-devel'], ],
   }
 
 

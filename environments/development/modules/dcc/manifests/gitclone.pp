@@ -12,7 +12,7 @@ class dcc::gitclone {
     user     => vagrant,
     require  => Package['git'],
     source   => 'https://github.com/DigitalCurationCentre/roadmap.git',
-    revision => 'master',
+    revision => 'postgresql',
   }
 
 }
