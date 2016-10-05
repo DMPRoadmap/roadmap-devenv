@@ -34,11 +34,11 @@ Vagrant.configure(2) do |config|
     db.vm.provision :shell do |shell|
       shell.inline = "
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/vcsrepo;
-                      puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/motd;
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules jfryman/nginx;
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules maestrodev/rvm;
-                      puppet module install --modulepath /opt/puppetlabs/puppet/modules ghoneycutt/ssh;
-                      puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/mysql;
+                      puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/postgresql;
+                      #puppet module install --modulepath /opt/puppetlabs/puppet/modules ghoneycutt/ssh;
+                      #puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/motd;
                      "
     end
     db.vm.provision :puppet do |puppet|
@@ -76,11 +76,11 @@ Vagrant.configure(2) do |config|
     dev.vm.provision :shell do |shell|
       shell.inline = "
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/vcsrepo;
-                      puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/motd;
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules jfryman/nginx;
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules maestrodev/rvm;
-                      puppet module install --modulepath /opt/puppetlabs/puppet/modules ghoneycutt/ssh;
-                      puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/mysql;
+                      puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/postgresql;
+                      #puppet module install --modulepath /opt/puppetlabs/puppet/modules ghoneycutt/ssh;
+                      #puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/motd;
                      "
     end
     dev.vm.provision :puppet do |puppet|
