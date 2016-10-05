@@ -6,9 +6,13 @@ This is the easiest way to get started with DMP Roadmap, as it sets up and deplo
 
 It uses Vagrant to deploy two Docker containers, one for the database and the other for the Rails app.
 
-## Requirements
-* [Docker v1.10.3](https://docs.docker.com/engine/installation) (Users of old versions of Mac OSX/Windows might need [Docker Toolbox](https://www.docker.com/products/docker-toolbox))
-* [Vagrant v1.8.1](https://www.vagrantup.com/downloads.html)
+## Requirements 
+1. Docker
+  * Linux: [Docker v1.10.3](https://docs.docker.com/engine/installation)
+  * Mac OSX: [Docker for Mac Beta](https://docs.docker.com/docker-for-mac)
+  * Windows: [Docker for Windows Beta](https://docs.docker.com/docker-for-windows) (untested)
+2. Vagrant 
+  * [Vagrant v1.8.6](https://www.vagrantup.com/downloads.html)
 
 ## Instructions
 1. Clone this configuration repository:
