@@ -19,9 +19,10 @@ class dcc::database {
   postgresql::server::db { 'dmponline' :
     owner    => 'dmponline',
     user     => 'dmponline',
-    password => 'dmponline',
+    password => postgresql_password('dmponline', 'dmponline'),
   }
   postgresql::server::role { 'dmponline':
-    superuser => true,
+    superuser     => true,
+    password_hash => postgresql_password('dmponline', 'dmponline'),
   }
 }

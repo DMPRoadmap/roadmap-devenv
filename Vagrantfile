@@ -66,13 +66,13 @@ Vagrant.configure(2) do |config|
       #the docker image must remain running for SSH (See the Dockerfile)
       d.remains_running = true
       d.has_ssh = true
-      d.ports = [ "8080:80","5020:22" ]
+      d.ports = [ "8080:80","5022:22" ]
     end
     dev.vm.host_name = 'dmponline-dev'
     dev.vm.synced_folder 'src', '/opt/src'
     dev.vm.network :forwarded_port, host: 8080, guest: 80 #web
     dev.ssh.host = "127.0.0.1"
-    dev.ssh.port = "5020"
+    dev.ssh.port = "5022"
     dev.vm.provision :shell do |shell|
       shell.inline = "
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/vcsrepo;
