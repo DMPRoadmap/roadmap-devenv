@@ -38,7 +38,7 @@ class dcc::rubyrails {
   file { '/opt/src/dmponline.git/config/database.yml' :
     owner  => 'vagrant',
     group  => 'source',
-    source => 'puppet:///files/database.yml',
+    content => "development:\n  adapter: postgresql\n  host: 172.18.0.2\n  port: 5435\n  database: dmponline\n  username: dmponline\n  password: dmponline\n  encoding: utf8",
   }
 
   exec { 'bundle install' :
@@ -63,8 +63,7 @@ class dcc::rubyrails {
 
   exec { 'rake db:setup' :
     environment => [ 'RAILS_ENV=development', 'HOME=/home/vagrant', ],
-    #command     => '/usr/local/rvm/gems/ruby-2.2.3@dmponline/wrappers/rake db:setup',
-    command     => '/usr/local/rvm/bin/rvm @dmponline do rake db:setup',
+    command     => '/usr/local/rvm/bin/rvm @dmponline do rake db:create',
     cwd         => '/opt/src/dmponline.git',
     require     => [ Exec['rake secret', 'bundle install', ],
                      File['/opt/src/dmponline.git/config/database.yml'],
