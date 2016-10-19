@@ -29,7 +29,7 @@ class dcc::rubyrails {
   }
 
   package { [
-             'postgresql-devel',
+             'postgresql95-devel',
              'ImageMagick-devel',
             ] :
     ensure => 'installed',
@@ -67,7 +67,7 @@ class dcc::rubyrails {
     cwd         => '/opt/src/dmponline.git',
     require     => [ Exec['rake secret', 'bundle install', ],
                      File['/opt/src/dmponline.git/config/database.yml'],
-                     Package['postgresql-devel', 'ImageMagick-devel'], ],
+                     Package['postgresql95-devel', 'ImageMagick-devel'], ],
   }
 
 
