@@ -21,7 +21,7 @@ Vagrant.configure(2) do |config|
       d.create_args = [ "--privileged", "-v",
                         "/sys/fs/cgroup:/sys/fs/cgroup:ro",
                         "--net=dmpbridge", "--ip=172.18.0.2", ]
-      d.ports = [ "5435:5435","4022:22" ]
+      d.ports = [ "5435:5435","3306:3306","4022:22" ]
 
       #the docker image must remain running for SSH (See the Dockerfile)
       d.remains_running = true
@@ -30,6 +30,7 @@ Vagrant.configure(2) do |config|
     db.vm.host_name = 'dmponline-db'
     db.ssh.port = "4022"
     db.ssh.host = "127.0.0.1"
+    db.vm.network :forwarded_port, host:3306 , guest:3306
     db.vm.network :forwarded_port, host:5435 , guest:5435
     db.vm.provision :shell do |shell|
       shell.inline = "
