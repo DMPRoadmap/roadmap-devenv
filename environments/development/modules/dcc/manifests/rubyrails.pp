@@ -47,7 +47,7 @@ class dcc::rubyrails {
   }
 
   exec { 'bundle install' :
-    command => '/usr/local/rvm/bin/rvm @dmponline do bundle install',
+    command => '/usr/local/rvm/bin/rvm @dmponline do bundle config build.pg --with-pg-config=/usr/pgsql-9.5/bin/pg_config && /usr/local/rvm/bin/rvm @dmponline do bundle install',
     cwd     => '/opt/src/dmponline.git',
     require => Rvm_gem['ruby-2.2.3@dmponline/bundler'],
   }
