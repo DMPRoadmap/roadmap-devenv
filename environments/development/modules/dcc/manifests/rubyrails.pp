@@ -1,6 +1,6 @@
 # Installs Python and dependencies
 class dcc::rubyrails {
-
+  
   require dcc::gitclone
 
   class { 'rvm' :
@@ -27,7 +27,11 @@ class dcc::rubyrails {
     ensure  => '5.0.30',
     require => Rvm_gemset['ruby-2.2.3@dmponline'],
   }
-
+  
+  class { 'postgresql::globals':
+    version => '9.5',
+    manage_package_repo => true,
+  } ->
   package { [
              'postgresql95-devel',
              'mariadb-devel',
