@@ -66,9 +66,17 @@ class dcc::rubyrails {
     require => [ Rvm_gem['ruby-2.2.3@dmponline/bundler'], File['/opt/src/dmponline.git/config/secrets.yml'], ],
   }
 
-  exec { 'rake db:setup' :
+  exec { 'rake db:create' :
     environment => [ 'RAILS_ENV=development', 'HOME=/home/vagrant', ],
     command     => '/usr/local/rvm/bin/rvm @dmponline do rake db:create',
+    cwd         => '/opt/src/dmponline.git',
+    require     => [ Exec['rake secret', 'bundle install', ],
+                     File['/opt/src/dmponline.git/config/database.yml'],
+                     Package['postgresql95-devel', 'mariadb-devel', 'ImageMagick-devel'], ],
+  } ->
+  exec { 'rake db:schema:load' :
+    environment => [ 'RAILS_ENV=development', 'HOME=/home/vagrant', ],
+    command     => '/usr/local/rvm/bin/rvm @dmponline do rake db:schema:load',
     cwd         => '/opt/src/dmponline.git',
     require     => [ Exec['rake secret', 'bundle install', ],
                      File['/opt/src/dmponline.git/config/database.yml'],
