@@ -6,13 +6,13 @@ class dcc::gitclone {
   }
 
   # Define our main repository and bring in the revision we need from it
-  vcsrepo { '/opt/src/dmponline.git':
+  vcsrepo { '/opt/src/dmproadmap.git':
     ensure   => latest,
     provider => git,
     user     => vagrant,
     require  => Package['git'],
-    source   => 'https://github.com/DigitalCurationCentre/roadmap.git',
-    revision => 'postgresql',
+    source   => 'https://github.com/DMPRoadmap/roadmap.git',
+    revision => 'development',
   }
 
 }
