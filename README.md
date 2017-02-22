@@ -2,7 +2,7 @@
 
 This is the easiest way to get started with DMP Roadmap, as it sets up and deploys a (largely) platform-agnostic and totally sandboxed development environment based on:
 * Docker / Vagrant / Puppet
-* CentOS 7 / nginx / MySQL / Ruby on Rails
+* CentOS 7 / nginx / PostgreSQL / Ruby on Rails
 
 It uses Vagrant to deploy two Docker containers, one for the database and the other for the Rails app.
 
@@ -18,7 +18,7 @@ It uses Vagrant to deploy two Docker containers, one for the database and the ot
 1. Clone this configuration repository:
 
  ```bash
- git clone https://github.com/DigitalCurationCentre/roadmap-devenv.git
+ git clone https://github.com/DMPRoadmap/roadmap-devenv.git
  ```
 
 2. Enter your local copy:
@@ -69,14 +69,14 @@ It uses Vagrant to deploy two Docker containers, one for the database and the ot
 6. You can customize the fork/branch to check out for deployment in the last two lines of Puppet manifest [`gitclone.pp`](environments/development/modules/dcc/manifests/gitclone.pp):
  
  ```puppet
-   vcsrepo { '/opt/src/dmponline.git':
+   vcsrepo { '/opt/src/dmproadmap.git':
     ensure   => latest,
     owner    => vagrant,
     group    => source,
     provider => git,
     user     => vagrant,
     require  => Package['git'],
-    source   => 'https://github.com/DigitalCurationCentre/roadmap.git',
-    revision => 'master',
+    source   => 'https://github.com/DMPRoadmap/roadmap.git',
+    revision => 'development',
   }
  ```
