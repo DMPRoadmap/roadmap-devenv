@@ -13,19 +13,19 @@ class dcc::rubyrails {
     default_use => true,
   }
 
-  rvm_gemset { 'ruby-2.2.3@dmponline' :
+  rvm_gemset { 'ruby-2.2.3@dmproadmap' :
     ensure  => 'present',
     require => Rvm_system_ruby['ruby-2.2.3'],
   }
 
-  rvm_gem { 'ruby-2.2.3@dmponline/bundler' :
+  rvm_gem { 'ruby-2.2.3@dmproadmap/bundler' :
     ensure  => '1.12.5',
-    require => Rvm_gemset['ruby-2.2.3@dmponline'],
+    require => Rvm_gemset['ruby-2.2.3@dmproadmap'],
   }
 
-  rvm_gem { 'ruby-2.2.3@dmponline/passenger' :
+  rvm_gem { 'ruby-2.2.3@dmproadmap/passenger' :
     ensure  => '5.0.30',
-    require => Rvm_gemset['ruby-2.2.3@dmponline'],
+    require => Rvm_gemset['ruby-2.2.3@dmproadmap'],
   }
   
   class { 'postgresql::globals':
@@ -43,11 +43,11 @@ class dcc::rubyrails {
   file { '/opt/src/dmproadmap.git/config/database.yml' :
     owner  => 'vagrant',
     group  => 'source',
-    content => "development:\n  adapter: postgresql\n  host: 172.18.0.2\n  port: 5435\n  database: dmproadmap\n  username: dmproadmap\n  password: dmponline\n  encoding: utf8",
+    content => "development:\n  adapter: postgresql\n  host: 172.18.0.2\n  port: 5435\n  database: dmproadmap\n  username: dmproadmap\n  password: dmproadmap\n  encoding: utf8",
   }
 
   exec { 'bundle install' :
-    command => '/usr/local/rvm/bin/rvm @dmproadmap do bundle config build.pg --with-pg-config=/usr/pgsql-9.5/bin/pg_config && /usr/local/rvm/bin/rvm @dmponline do bundle install',
+    command => '/usr/local/rvm/bin/rvm @dmproadmap do bundle config build.pg --with-pg-config=/usr/pgsql-9.6/bin/pg_config && /usr/local/rvm/bin/rvm @dmproadmap do bundle install',
     cwd     => '/opt/src/dmproadmap.git',
     require => Rvm_gem['ruby-2.2.3@dmproadmap/bundler'],
   }
