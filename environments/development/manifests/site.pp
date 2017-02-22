@@ -1,4 +1,4 @@
-node 'dmponline-dev' {
+node 'dmproadmap-dev' {
 
   include dcc::standard
   include dcc::epel
@@ -9,7 +9,7 @@ node 'dmponline-dev' {
 
 }
 
-node 'dmponline-db' {
+node 'dmproadmap-db' {
   include dcc::standard
   include dcc::database
   include dcc::updatedb
