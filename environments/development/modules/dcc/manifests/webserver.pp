@@ -34,12 +34,12 @@ class dcc::webserver {
 
   #include nginx::config
 
-  nginx::resource::vhost { 'dmponline-dev' :
-    www_root         => '/opt/src/dmponline.git/public',
+  nginx::resource::vhost { 'dmproadmap-dev' :
+    www_root         => '/opt/src/dmproadmap.git/public',
     vhost_cfg_append => {
                           passenger_enabled => 'on',
                           rails_env         => 'development',
-                          passenger_ruby    => '/usr/local/rvm/gems/ruby-2.2.3@dmponline/wrappers/ruby',
+                          passenger_ruby    => '/usr/local/rvm/gems/ruby-2.2.3@dmproadmap/wrappers/ruby',
                         },
     require          => Package['passenger'],
   }
