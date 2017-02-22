@@ -27,7 +27,7 @@ Vagrant.configure(2) do |config|
       d.remains_running = true
       d.has_ssh = true
     end
-    db.vm.host_name = 'dmponline-db'
+    db.vm.host_name = 'dmproadmap-db'
     db.ssh.port = "4022"
     db.ssh.host = "127.0.0.1"
     db.vm.network :forwarded_port, host:3306 , guest:3306
@@ -38,8 +38,6 @@ Vagrant.configure(2) do |config|
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules jfryman/nginx;
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules maestrodev/rvm;
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/postgresql;
-                      #puppet module install --modulepath /opt/puppetlabs/puppet/modules ghoneycutt/ssh;
-                      #puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/motd;
                      "
     end
     db.vm.provision :puppet do |puppet|
@@ -69,7 +67,7 @@ Vagrant.configure(2) do |config|
       d.has_ssh = true
       d.ports = [ "8080:80","5022:22" ]
     end
-    dev.vm.host_name = 'dmponline-dev'
+    dev.vm.host_name = 'dmproadmap-dev'
     dev.vm.synced_folder 'src', '/opt/src'
     dev.vm.network :forwarded_port, host: 8080, guest: 80 #web
     dev.ssh.host = "127.0.0.1"
@@ -80,8 +78,6 @@ Vagrant.configure(2) do |config|
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules jfryman/nginx;
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules maestrodev/rvm;
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/postgresql;
-                      #puppet module install --modulepath /opt/puppetlabs/puppet/modules ghoneycutt/ssh;
-                      #puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/motd;
                      "
     end
     dev.vm.provision :puppet do |puppet|
