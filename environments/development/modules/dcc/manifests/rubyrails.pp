@@ -66,14 +66,6 @@ class dcc::rubyrails {
     require => [ Rvm_gem['ruby-2.2.3@dmproadmap/bundler'], File['/opt/src/dmproadmap.git/config/secrets.yml'], ],
   }
 
-  exec { 'rake db:create' :
-    environment => [ 'RAILS_ENV=development', 'HOME=/home/vagrant', ],
-    command     => '/usr/local/rvm/bin/rvm @dmproadmap do rake db:create',
-    cwd         => '/opt/src/dmproadmap.git',
-    require     => [ Exec['rake secret', 'bundle install', ],
-                     File['/opt/src/dmproadmap.git/config/database.yml'],
-                     Package['postgresql96-devel', 'mariadb-devel', 'ImageMagick-devel'], ],
-  } ->
   exec { 'rake db:setup' :
     environment => [ 'RAILS_ENV=development', 'HOME=/home/vagrant', ],
     command     => '/usr/local/rvm/bin/rvm @dmproadmap do rake db:setup',

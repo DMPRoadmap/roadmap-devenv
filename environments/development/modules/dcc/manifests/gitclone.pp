@@ -13,6 +13,19 @@ class dcc::gitclone {
     require  => Package['git'],
     source   => 'https://github.com/DMPRoadmap/roadmap.git',
     revision => 'development',
-  }
+  } ->
+  file { '/opt/src/dmproadmap.git/config/initializers/devise.rb':
+          ensure => present,
+          source => '/opt/src/dmproadmap.git/config/initializers/devise.rb.example',
+  } ->
+  file { '/opt/src/dmproadmap.git/config/initializers/recaptcha.rb':
+          ensure => present,
+          source => '/opt/src/dmproadmap.git/config/initializers/recaptcha.rb.example',
+  } ->
+  file { '/opt/src/dmproadmap.git/tmp':
+          ensure => 'directory',
+          owner  => 'vagrant',
+          group  => 'vagrant',
+  }  
 
 }
