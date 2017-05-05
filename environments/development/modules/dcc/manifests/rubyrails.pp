@@ -1,8 +1,6 @@
 # Installs Python and dependencies
 class dcc::rubyrails {
   
-  require dcc::gitclone
-
   class { 'rvm' :
   }
 
