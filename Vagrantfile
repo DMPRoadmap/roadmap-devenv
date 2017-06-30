@@ -5,7 +5,7 @@
 ENV['VAGRANT_DEFAULT_PROVIDER'] ||= 'docker'
 
 # build one image before the other (no race)
-ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+# ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 
 
 Vagrant.configure(2) do |config|

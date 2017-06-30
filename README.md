@@ -8,11 +8,11 @@ It uses Vagrant to deploy two Docker containers, one for the database and the ot
 
 ## Requirements 
 1. Docker
-  * Linux: [Docker v1.10.3](https://docs.docker.com/engine/installation)
-  * Mac OSX: [Docker for Mac Beta](https://docs.docker.com/docker-for-mac)
-  * Windows: [Docker for Windows Beta](https://docs.docker.com/docker-for-windows) (untested)
+    * Linux: [Docker v1.10.3](https://docs.docker.com/engine/installation)+
+    * Mac OSX: [Docker for Mac Beta](https://docs.docker.com/docker-for-mac)
+    * Windows: [Docker for Windows Beta](https://docs.docker.com/docker-for-windows) (untested)
 2. Vagrant 
-  * [Vagrant v1.8.6](https://www.vagrantup.com/downloads.html)
+    * [Vagrant v1.8.6](https://www.vagrantup.com/downloads.html)+
 
 ## Instructions
 1. Clone this configuration repository:

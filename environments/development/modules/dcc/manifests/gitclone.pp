@@ -17,10 +17,20 @@ class dcc::gitclone {
   file { '/opt/src/dmproadmap.git/config/initializers/devise.rb':
           ensure => present,
           source => '/opt/src/dmproadmap.git/config/initializers/devise.rb.example',
+          owner  => 'vagrant',
+          group  => 'source',
   } ->
   file { '/opt/src/dmproadmap.git/config/initializers/recaptcha.rb':
           ensure => present,
           source => '/opt/src/dmproadmap.git/config/initializers/recaptcha.rb.example',
+          owner  => 'vagrant',
+          group  => 'source',
+  } ->
+  file { '/opt/src/dmproadmap.git/config/branding.yml':
+          ensure => present,
+          source => '/opt/src/dmproadmap.git/config/branding_example.yml',
+          owner  => 'vagrant',
+          group  => 'source',
   } ->
   file { '/opt/src/dmproadmap.git/tmp':
           ensure => 'directory',

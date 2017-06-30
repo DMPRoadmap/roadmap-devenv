@@ -13,6 +13,7 @@ class dcc::standard {
   package { [
              'bash-completion',
              'bzip2',
+             'ca-certificates',
              'man',
              'mlocate',
              'nano',

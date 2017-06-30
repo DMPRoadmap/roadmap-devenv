@@ -9,11 +9,6 @@ class dcc::database {
   class { 'postgresql::server':
     listen_addresses     => '*',
     port                 => 5435,
-    ipv4acls             => [
-                             'local all postgres                 trust',
-                             'local all dmproadmap               trust',
-                             'host  all dmproadmap 172.18.0.0/24 md5  ',
-                            ],
     pg_hba_conf_defaults => false,
   }
   postgresql::server::db { 'dmproadmap' :
@@ -25,4 +20,25 @@ class dcc::database {
     superuser     => true,
     password_hash => postgresql_password('dmproadmap', 'dmproadmap'),
   }
+  postgresql::server::pg_hba_rule { 'local all postgres trust' :
+    type        => 'local',
+    database    => 'all',
+    user        => 'postgres',
+    auth_method => 'trust',
+  }
+  postgresql::server::pg_hba_rule { 'local all dmproadmap trust' :
+    type        => 'local',
+    database    => 'all',
+    user        => 'dmproadmap',
+    auth_method => 'trust',
+  }
+  postgresql::server::pg_hba_rule { 'host all dmproadmap 172.18.0.0/24 md5' :
+    type        => 'host',
+    database    => 'all',
+    user        => 'dmproadmap',
+    address     => '172.18.0.0/24',
+    auth_method => 'md5',
+  }
+
+
 }
