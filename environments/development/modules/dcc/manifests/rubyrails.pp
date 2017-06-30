@@ -41,7 +41,7 @@ class dcc::rubyrails {
   file { '/opt/src/dmproadmap.git/config/database.yml' :
     owner   => 'vagrant',
     group   => 'source',
-    content => "development:\n  adapter: postgresql\n  host: 172.18.0.2\n  port: 5435\n  database: dmproadmap\n  username: dmproadmap\n  password: dmproadmap\n  encoding: utf8",
+    content => "development:\n  adapter: mysql2\n  host: 172.18.0.2\n  database: dmproadmap\n  username: dmproadmap\n  password: dmproadmap\n  encoding: utf8",
   }
 
   exec { 'bundle install' :

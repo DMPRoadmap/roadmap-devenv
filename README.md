@@ -2,7 +2,7 @@
 
 This is the easiest way to get started with DMP Roadmap, as it sets up and deploys a (largely) platform-agnostic and totally sandboxed development environment based on:
 * Docker / Vagrant / Puppet
-* CentOS 7 / nginx / PostgreSQL / Ruby on Rails
+* CentOS 7 / nginx / MySQL (MariaDB) / Ruby on Rails
 
 It uses Vagrant to deploy two Docker containers, one for the database and the other for the Rails app.
 
