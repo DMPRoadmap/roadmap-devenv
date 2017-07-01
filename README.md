@@ -1,6 +1,6 @@
-# DMP Roadmap Development Environment
+# DMPRoadmap Development Environment
 
-This is the easiest way to get started with DMP Roadmap, as it sets up and deploys a (largely) platform-agnostic and totally sandboxed development environment based on:
+This is the easiest way to get started with DMPRoadmap, as it sets up and deploys a (largely) platform-agnostic and totally sandboxed development environment based on:
 * Docker / Vagrant / Puppet
 * CentOS 7 / nginx / PostgreSQL / Ruby on Rails
 
@@ -41,7 +41,7 @@ It uses Vagrant to deploy two Docker containers, one for the database and the ot
  vagrant up
  ```
 
-5. Your DMP Roadmap development instance is up and running! You can now:
+5. Your DMPRoadmap development instance is up and running! You can now:
  - Open the running instance with your web browser at:
     - [http://[your_hostname]:8080/](http://[your_hostname]:8080/) (also visible from your network)
     - [http://localhost:8080/](http://localhost:8080/) (only visible locally)
