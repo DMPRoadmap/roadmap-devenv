@@ -80,7 +80,7 @@ class dcc::rubyrails {
     user    => 'vagrant',
   }
 
-  exec { 'npm run bundle -- -p' :
+  exec { 'npm run bundle' :
     command => "/bin/bash -c '/usr/bin/npm run bundle &'",
     cwd     => '/opt/src/dmproadmap.git/lib/assets',
     user    => 'vagrant',
