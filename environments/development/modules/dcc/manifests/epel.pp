@@ -2,17 +2,14 @@
 class dcc::epel {
 
   require dcc::standard
-
-  package { 'epel-release':
-    ensure => 'installed',
-  }
+ 
+  include epel
 
   package { [
              'pygpgme',
              'curl',
             ] :
     ensure  => 'installed',
-    require => Package['epel-release'],
   }
 
 }
