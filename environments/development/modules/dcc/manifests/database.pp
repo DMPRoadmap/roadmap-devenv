@@ -2,7 +2,7 @@
 class dcc::database {
 
   class { 'mysql::server':
-    package_ensure => '5.5.52',
+    package_ensure => 'ensure',
     override_options => {
       mysqld => {
                   bind-address => '0.0.0.0',
