@@ -38,6 +38,8 @@ Vagrant.configure(2) do |config|
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules jfryman/nginx;
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules maestrodev/rvm;
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/postgresql;
+                      puppet module install --modulepath /opt/puppetlabs/puppet/modules puppet/nodejs;
+                      puppet module install --modulepath /opt/puppetlabs/puppet/modules stahnma/epel;
                      "
     end
     db.vm.provision :puppet do |puppet|
@@ -78,6 +80,8 @@ Vagrant.configure(2) do |config|
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules jfryman/nginx;
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules maestrodev/rvm;
                       puppet module install --modulepath /opt/puppetlabs/puppet/modules puppetlabs/postgresql;
+                      puppet module install --modulepath /opt/puppetlabs/puppet/modules puppet/nodejs;
+                      puppet module install --modulepath /opt/puppetlabs/puppet/modules stahnma/epel;
                      "
     end
     dev.vm.provision :puppet do |puppet|

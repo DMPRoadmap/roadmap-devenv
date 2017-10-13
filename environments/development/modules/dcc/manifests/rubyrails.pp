@@ -1,6 +1,6 @@
 # Installs Python and dependencies
 class dcc::rubyrails {
-  
+
   class { 'rvm' :
   }
 
@@ -25,7 +25,7 @@ class dcc::rubyrails {
     ensure  => '5.0.30',
     require => Rvm_gemset['ruby-2.2.3@dmproadmap'],
   }
-  
+
   class { 'postgresql::globals':
     version => '9.6',
     manage_package_repo => true,
@@ -38,16 +38,23 @@ class dcc::rubyrails {
     ensure => 'installed',
   }
 
+  class { '::nodejs':
+    repo_url_suffix => '6.x',
+    nodejs_dev_package_ensure => 'present',
+    npm_package_ensure        => 'present',
+    repo_class                => '::epel',
+  }
   file { '/opt/src/dmproadmap.git/config/database.yml' :
-    owner   => 'vagrant',
-    group   => 'source',
+    owner  => 'vagrant',
+    group  => 'source',
     content => "development:\n  adapter: postgresql\n  host: 172.18.0.2\n  port: 5435\n  database: dmproadmap\n  username: dmproadmap\n  password: dmproadmap\n  encoding: utf8",
+    require => Vcsrepo['/opt/src/dmproadmap.git'],
   }
 
   exec { 'bundle install' :
     command => '/usr/local/rvm/bin/rvm @dmproadmap do bundle config build.pg --with-pg-config=/usr/pgsql-9.6/bin/pg_config && /usr/local/rvm/bin/rvm @dmproadmap do bundle install',
     cwd     => '/opt/src/dmproadmap.git',
-    require => Rvm_gem['ruby-2.2.3@dmproadmap/bundler'],
+    require => [ Rvm_gem['ruby-2.2.3@dmproadmap/bundler'], Vcsrepo['/opt/src/dmproadmap.git'], ]
   }
 
   file { '/opt/src/dmproadmap.git/config/secrets.yml':
@@ -61,7 +68,21 @@ class dcc::rubyrails {
     command => "/bin/bash -c '/usr/local/rvm/bin/rvm @dmproadmap do rake secret >> /opt/src/dmproadmap.git/config/secrets.yml'",
     user    => 'vagrant',
     cwd     => '/opt/src/dmproadmap.git',
-    require => [ Rvm_gem['ruby-2.2.3@dmproadmap/bundler'], File['/opt/src/dmproadmap.git/config/secrets.yml'], ],
+    require => [ Rvm_gem['ruby-2.2.3@dmproadmap/bundler'],
+                 File['/opt/src/dmproadmap.git/config/secrets.yml'],
+                 File['/opt/src/dmproadmap.git/tmp'],],
+  }
+
+  exec { 'npm install' :
+    command => "/bin/bash -c '/usr/bin/npm install'",
+    cwd     => '/opt/src/dmproadmap.git/lib/assets',
+    user    => 'vagrant',
+  }
+
+  exec { 'npm run bundle -- -p' :
+    command => "/bin/bash -c '/usr/bin/npm run bundle &'",
+    cwd     => '/opt/src/dmproadmap.git/lib/assets',
+    user    => 'vagrant',
   }
 
   exec { 'rake db:setup' :
@@ -72,7 +93,6 @@ class dcc::rubyrails {
                      File['/opt/src/dmproadmap.git/config/database.yml'],
                      Package['postgresql96-devel', 'mariadb-devel', 'ImageMagick-devel'], ],
   }
-
 
 
 }
