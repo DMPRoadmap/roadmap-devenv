@@ -12,7 +12,7 @@ class dcc::gitclone {
     user     => vagrant,
     require  => Package['git'],
     source   => 'https://github.com/DMPRoadmap/roadmap.git',
-    revision => 'CDL-MVP',
+    revision => 'development',
   } ->
   file { '/opt/src/dmproadmap.git/config/initializers/devise.rb':
           ensure => present,
